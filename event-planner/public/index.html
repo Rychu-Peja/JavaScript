@@ -10,9 +10,35 @@
 <body>
   <h1>Event Planner</h1>
 
-  <!-- Dodaj formularz do tworzenia wydarzeń i tabelę do wyświetlania istniejących wydarzeń -->
-  <!-- Pamiętaj o dodaniu odpowiednich id i klas dla łatwiejszego stylowania i manipulacji w JS -->
-  
+  <!-- Formularz do tworzenia wydarzeń -->
+  <form id="eventForm">
+    <label for="eventName">Event Name:</label>
+    <input type="text" id="eventName" name="eventName" required>
+
+    <label for="eventDate">Event Date:</label>
+    <input type="date" id="eventDate" name="eventDate" required>
+
+    <label for="eventDescription">Event Description:</label>
+    <input type="text" id="eventDescription" name="eventDescription" required>
+
+    <button type="submit">Create Event</button>
+  </form>
+
+  <!-- Tabela do wyświetlania istniejących wydarzeń -->
+  <table id="eventTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Event Name</th>
+        <th>Event Date</th>
+        <th>Event Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Tutaj będą wyświetlane istniejące wydarzenia -->
+    </tbody>
+  </table>
+
   <script src="app.js"></script>
 </body>
 </html>

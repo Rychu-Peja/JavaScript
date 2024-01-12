@@ -1,3 +1,16 @@
+const path = require('path');
+const fs = require('fs');
+
+function readHTMLFile(filePath, callback) {
+  fs.readFile(filePath, { encoding: 'utf-8' }, (err, html) => {
+    if (err) {
+      throw err;
+    } else {
+      callback(null, html);
+    }
+  });
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -21,7 +34,17 @@ app.use('/events', eventRoutes);
 // Obsługa ścieżki głównej
 app.get('/', (req, res) => {
   res.sendFile(filePath);
+
+  readHTMLFile(filePath, (err, html) => {
+    if (err) {
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.send(html);
+    }
+  });
 });
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
