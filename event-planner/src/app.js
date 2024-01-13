@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const eventRoutes = require('./routes/eventRoutes');
-const filePath = 'C:\\Users\\jedzi\\Desktop\\JS-zaliczenie\\event-planner\\views\\index.ejs';
+const filePath = 'C:\\JavaScript\\event-planner\\views\\index.ejs';
 const eventController = require('./controllers/eventController');
 const Event = require('../src/models/Event');
 

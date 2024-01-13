@@ -1,11 +1,12 @@
 body {
-margin: 0;
-background-color: rgba(255, 195, 0, 0.23);
+  margin: 0;
+  background-color: rgba(255, 195, 0, 0.23);
 }
 
 .container {
-text-align: center;
-margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 h2,
@@ -13,107 +14,159 @@ h2,
 #enterButton,
 #eventDate,
 #eventTime {
-font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 h2 {
-background-color: #FFC300;
-color: #3C4142;
-height: 55px;
-margin: 0 0 20px 0;
-padding-top: 17px;
-text-align: center;
-letter-spacing: 2px;
-font-size: 28px;
-text-transform: capitalize;
+  background-color: #FFC300;
+  color: #3C4142;
+  height: 55px;
+  margin: 0 0 20px 0;
+  padding-top: 17px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 28px;
+  text-transform: capitalize;
 }
 
 .event-section {
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #userinput,
 #eventDate,
 #eventTime {
-height: 25px;
-border-radius: 10px;
-transition: width 0.5s;
-padding-left: 8px;
-margin-bottom: 15px;
-border: 1px solid #FFC300;
+  height: 25px;
+  border-radius: 10px;
+  transition: width 0.5s;
+  padding-left: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #FFC300;
 }
 
 #userinput:focus,
 #eventDate:focus,
 #eventTime:focus {
-outline: none;
-border: 1.5px solid #FFC300;
-box-shadow: 0.75px 0.75px 2px #FFC300;
+  outline: none;
+  border: 1.5px solid #FFC300;
+  box-shadow: 0.75px 0.75px 2px #FFC300;
 }
 
 .datetime-section {
-display: flex;
+  display: flex;
 }
 
-#enterButton {
-background-color: #FFC300;
-font-size: 15px;
-letter-spacing: 1px;
-height: 35px;
-width: 100px;
-border-radius: 15px;
-border: none;
-cursor: pointer;
+#enterButton,
+.todolist button,
+.submit-button {
+  background-color: #FFC300;
+  color: #3C4142;
+  font-size: 15px;
+  letter-spacing: 1px;
+  height: 35px;
+  width: 100px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-#enterButton:focus {
-outline: none;
+#enterButton:hover,
+.todolist button:hover
+{
+  background-color: rgb(255, 0, 0);
+  color: #000000;
+}
+
+.submit-button:hover{
+  background-color: rgb(21, 255, 0);
+  color: #000000;
+}
+
+#enterButton:focus,
+.todolist button:focus,
+.submit-button:focus {
+  outline: none;
 }
 
 .todolist {
-position: relative;
-font-family: sans-serif;
-line-height: 30px;
-width: 370px;
-height: auto;
-min-height: 80px;
-margin: 0 auto;
-border: 1.5px solid #FFC300;
-box-shadow: 0.75px 0.75px 2px #FFC300;
-border-radius: 15px;
+  position: relative;
+  font-family: sans-serif;
+  line-height: 30px;
+  width: 80%; /* Adjusted width to 80% */
+  height: auto;
+  min-height: 80px;
+  margin: 0 auto;
+  border: 1.5px solid #FFC300;
+  box-shadow: 0.75px 0.75px 2px #FFC300;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.todolist table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.todolist th,
+.todolist td {
+  padding: 10px; /* Added padding to th and td */
+}
+
+.todolist th {
+  background-color: #FFC300;
+}
+
+.todolist td {
+  border: 1px solid #FFC300;
+}
+
+.todolist tr {
+  margin-bottom: 10px; /* Added margin between table rows */
 }
 
 .done-section {
-margin-top: 20px;
-text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
-
 .done-section h3 {
-margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .done-list {
-list-style: none;
-padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .done-list li {
-text-decoration: line-through;
-color: #999;
+  text-decoration: line-through;
+  color: #999;
 }
 
 .todobutton {
-position: absolute;
-right: 20px;
-margin-top: 5px;
-background-color: rgba(255, 195, 0, 0.5);
-height: 25px;
-border-radius: 10px;
-cursor: pointer;
+  position: absolute;
+  right: 20px;
+  margin-top: 5px;
+  background-color: rgba(255, 195, 0, 0.5);
+  height: 25px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .todobutton:focus {
-outline: none;
+  outline: none;
+}
+
+/* Added margin for the table header columns */
+th {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/* Added margin for the table data cells */
+td {
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
