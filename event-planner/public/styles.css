@@ -1,12 +1,92 @@
-/* public/styles.css */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  /* Dodaj odpowiednie style dla formularza i tabeli */
-  
+body{
+	margin: 0px;
+	background-color: rgba(255, 195, 0, 0.23);
+}
+
+.container{
+	text-align:center;
+}
+
+h2, 
+#userinput, 
+#enterButton{
+	font-family:sans-serif;
+}
+
+h2{
+	background-color:#FFC300;
+	color:#3C4142;
+	height:55px;
+	margin:0 0 70px 0;
+	padding-top:17px;
+	text-align:center;
+	letter-spacing:2px;
+	font-size:28px;
+	text-transform: capitalize;
+}
+
+#userinput{
+	margin-right:100px;
+	height: 25px;
+	width:100px;
+	border-radius: 10px;
+	transition:width 0.5s;
+	padding-left:8px;
+	margin-bottom:25px;
+}
+
+#userinput:focus{
+	outline:none;
+	border: 1.5px solid #FFC300;
+	box-shadow: 0.75px 0.75px 2px #FFC300;
+	width:150px;
+}
+
+#enterButton{
+	background-color: #FFC300;
+	/*font-weight: bold;*/
+	font-size: 15px;
+	letter-spacing: 1px;
+	height:35px;
+	width: 100px;
+	border-radius: 15px
+}
+#enterButton:focus{
+	outline:none;
+}
+
+
+.todolist{
+	position: relative;
+	font-family: sans-serif;
+	line-height: 30px;
+	width: 370px;
+	height: auto;
+	min-height: 80px;
+	margin:0 auto;
+	border: 1.5px solid #FFC300;
+	box-shadow: 0.75px 0.75px 2px #FFC300;
+	border-radius: 15px;
+}
+
+
+li:hover{
+	text-decoration: line-through;
+ }
+
+ .done{
+ 	text-decoration: line-through;
+ }
+
+.todobutton{
+	position: absolute;
+	right:20px;
+	margin-top:5px;
+	background-color:rgba(255, 195, 0, 0.5);
+	height: 25px;
+	border-radius: 10px;
+}
+
+.todobutton:focus{
+	outline:none;
+}
