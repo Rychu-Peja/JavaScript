@@ -72,10 +72,10 @@ li:hover{
 	text-decoration: line-through;
 }
 
-  h1 {
-    text-align: center;
-  }
-  
+.done{
+	text-decoration: line-through;
+}
+
 .todobutton{
 	position: absolute;
 	right:20px;
@@ -85,3 +85,6 @@ li:hover{
 	border-radius: 10px;
 }
 
+.todobutton:focus{
+	outline:none;
+}
