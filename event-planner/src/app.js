@@ -34,30 +34,6 @@ app.get('/', (req, res) => {
   });
 });
 
-document.getElementById('eventForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const eventName = document.getElementById('eventName').value;
-  const eventDate = document.getElementById('eventDate').value;
-  const eventTime = document.getElementById('eventTime').value;
-
-  try {
-    const response = await fetch('/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ eventName, eventDate, eventTime }),
-    });
-
-    if (response.ok) {
-      console.log('Event created');
-    } else {
-      console.log('Failed to create event');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

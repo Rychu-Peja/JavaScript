@@ -1,46 +1,62 @@
+// eventController.js
 const Event = require('../models/Event');
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 // Create event
-const newEvent = new Event({
-  eventName: 'Urodziny ',
-  eventDate: '15.02.2024',
-  eventTime: '17:20'
-});
-
-newEvent.save()
-  .then(() => console.log('Event created'))
-  .catch((err) => console.log(err));
-
-// Read all events
-Event.find()
-  .then((events) => console.log(events))
-  .catch((err) => console.log(err));
-
-// Update event
-Event.findOneAndUpdate({ eventName: 'Zaliczenie' }, { eventName: 'Poprawa' })
-  .then(() => console.log('Event updated'))
-  .catch((err) => console.log(err));
-
-// Delete event
-Event.deleteOne({ eventName: 'Poprawa' })
-  .then(() => console.log('Event deleted'))
-  .catch((err) => console.log(err));
-
-module.exports = Event;
-
-const Event = require('../models/Event');
-
 exports.createEvent = async (req, res) => {
- const { eventName, eventDate, eventTime } = req.body;
+  const { eventName, eventDate, eventTime } = req.body;
 
- try {
+  console.log('Received request to create event:', { eventName, eventDate, eventTime });
+  try {
     const event = new Event({ eventName, eventDate, eventTime });
     await event.save();
-    res.send(event);
- } catch (error) {
+    
+    console.log('Event saved successfully.');
+
+    res.status(201).json({ message: 'Event created', event });
+  } catch (error) {
     console.error(error);
-    res.status(500).send(error);
- }
+    res.status(500).json({ message: 'Failed to create event' });
+  }
+};
+
+// Read all events
+exports.getAllEvents = async (req, res) => {
+  try {
+    const events = await Event.find({});
+    res.json(events);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to retrieve events' });
+  }
+};
+
+// Update event
+exports.updateEvent = async (req, res) => {
+  const { id } = req.params;
+  const { eventName, eventDate, eventTime } = req.body;
+
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { eventName, eventDate, eventTime },
+      { new: true }
+    );
+    res.json(updatedEvent);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to update event' });
+  }
+};
+
+// Delete event
+exports.deleteEvent = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedEvent = await Event.findByIdAndDelete(id);
+    res.json(deletedEvent);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to delete event' });
+  }
 };

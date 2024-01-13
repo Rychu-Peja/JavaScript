@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Event Planner</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+  <title>Event Planner</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
 </head>
 <body>
   <h2>Plan your event</h2>
@@ -18,8 +18,8 @@
       <label for="eventTime">Event Time:</label>
       <input type="time" id="eventTime" name="eventTime" required>
        
-      <button type="submit">Submit</button>
-     </form>
+      <button type="button" onclick="submitEvent()">Submit</button>
+    </form>
   </div>
   <div class="todolist">
     <ol>
@@ -31,6 +31,28 @@
       <!-- Tutaj będą wyświetlane zakończone zadania -->
     </ul>
   </div>
-  <script type="text/javascript" src="../src/app.js"></script>
+  <script type="text/javascript">
+    async function submitEvent() {
+      const eventName = document.getElementById('eventName').value;
+      const eventDate = document.getElementById('eventDate').value;
+      const eventTime = document.getElementById('eventTime').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/events', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ eventName, eventDate, eventTime }),
+        });
+
+        if (response.ok) {
+          console.log('Event created');
+        } else {
+          console.log('Failed to create event');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  </script>
 </body>
 </html>
