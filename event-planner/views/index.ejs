@@ -11,26 +11,42 @@
   <h2>Plan your event</h2>
   <div class="container">
     <form id="eventForm" action="/events" method="POST">
-        <label for="eventName">Event Name:</label>
+        <label for="eventName">Name:</label>
         <input type="text" id="eventName" name="eventName" value="<%= eventName %>" required>
         
-        <label for="eventDate">Event Date:</label>
+        <label for="eventDate">Date:</label>
         <input type="date" id="eventDate" name="eventDate" value="<%= eventDate %>" required>
         
-        <label for="eventTime">Event Time:</label>
+        <label for="eventTime">Time:</label>
         <input type="time" id="eventTime" name="eventTime" value="<%= eventTime %>" required>
         
         <button type="button" onclick="submitEvent()">Submit</button>
+    </form>
+  </div>
+  <div class="edit-form-container" style="display: none;">
+    <h3>Edit Event</h3>
+    <form id="editEventForm" action="#" method="POST">
+      <label for="editEventName">Name:</label>
+      <input type="text" id="editEventName" name="editEventName" required>
+  
+      <label for="editEventDate">Date:</label>
+      <input type="date" id="editEventDate" name="editEventDate" required>
+  
+      <label for="editEventTime">Time:</label>
+      <input type="time" id="editEventTime" name="editEventTime" required>
+  
+      <button type="button" onclick="updateEvent()">Update</button>
+      <button type="button" onclick="cancelEdit()">Cancel</button>
     </form>
   </div>
   <div class="todolist">
     <table>
       <thead>
         <tr>
-          <th>Event Name</th>
-          <th>Event Date</th>
-          <th>Event Time</th>
-          <th>Action</th> <!-- Dodaj nową kolumnę dla przycisku Remove -->
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -40,6 +56,7 @@
             <td><%= event.eventDate %></td>
             <td><%= event.eventTime %></td>
             <td>
+              <button onclick="editEvent('<%= event._id %>')">Edit</button>
               <button onclick="removeEvent('<%= event._id %>')">Remove</button>
             </td>
           </tr>
@@ -56,56 +73,54 @@
   <script type="text/javascript" src="../src/app.js"></script>
   <script type="text/javascript">
     async function submitEvent() {
-    const eventName = document.getElementById('eventName').value;
-    const eventDate = document.getElementById('eventDate').value;
-    const eventTime = document.getElementById('eventTime').value;
+      const eventName = document.getElementById('eventName').value;
+      const eventDate = document.getElementById('eventDate').value;
+      const eventTime = document.getElementById('eventTime').value;
 
-    // Sprawdź, czy wartości są stringami
-    if (typeof eventName !== 'string' || typeof eventDate !== 'string' || typeof eventTime !== 'string') {
+      if (typeof eventName !== 'string' || typeof eventDate !== 'string' || typeof eventTime !== 'string') {
         console.error('Invalid input values');
         return;
-    }
+      }
 
-    // Sprawdź, czy wszystkie pola są uzupełnione przed wysłaniem żądania
-    if (!eventName || !eventDate || !eventTime) {
+      if (!eventName || !eventDate || !eventTime) {
         console.error('All fields must be filled out');
         return;
-    }
+      }
 
-    try {
+      try {
         const response = await fetch('/events', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ eventName, eventDate, eventTime }),
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ eventName, eventDate, eventTime }),
         });
 
         if (response.ok) {
-            console.log('Event created');
-            location.reload(); // Automatyczne odświeżenie strony
+          console.log('Event created');
+          location.reload();
         } else {
-            console.log('Failed to create event');
+          console.log('Failed to create event');
         }
-    } catch (error) {
+      } catch (error) {
         console.error(error);
+      }
     }
-}
 
     async function removeEvent(eventId) {
-        try {
-            const response = await fetch(`/events/${eventId}`, {
-                method: 'DELETE',
-            });
+      try {
+        const response = await fetch(`/events/${eventId}`, {
+          method: 'DELETE',
+        });
 
-            if (response.ok) {
-                console.log('Event removed');
-                location.reload(); // Automatyczne odświeżenie strony
-            } else {
-                console.log('Failed to remove event');
-            }
-        } catch (error) {
-            console.error(error);
+        if (response.ok) {
+          console.log('Event removed');
+          location.reload();
+        } else {
+          console.log('Failed to remove event');
         }
+      } catch (error) {
+        console.error(error);
+      }
     }
-</script>
+  </script>
 </body>
 </html>

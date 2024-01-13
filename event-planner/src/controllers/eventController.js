@@ -1,4 +1,3 @@
-// eventController.js
 const Event = require('../models/Event');
 
 // Create event
