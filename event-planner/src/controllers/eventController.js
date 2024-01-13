@@ -23,7 +23,7 @@ exports.createEvent = async (req, res) => {
 exports.getAllEvents = async (req, res) => {
   try {
     const events = await Event.find({});
-    res.json(events);
+    res.render('index', { events });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to retrieve events' });
@@ -50,13 +50,18 @@ exports.updateEvent = async (req, res) => {
 
 // Delete event
 exports.deleteEvent = async (req, res) => {
-  const { id } = req.params;
+  const eventId = req.params.id;
 
   try {
-    const deletedEvent = await Event.findByIdAndDelete(id);
-    res.json(deletedEvent);
+    const deletedEvent = await Event.findByIdAndDelete(eventId);
+
+    if (!deletedEvent) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.status(200).json({ message: 'Event removed', deletedEvent });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Failed to delete event' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

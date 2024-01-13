@@ -24,10 +24,30 @@
     </form>
   </div>
   <div class="todolist">
-    <ol>
-      <!-- <li>heyy</li> -->
-    </ol>
+    <table>
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Event Date</th>
+          <th>Event Time</th>
+          <th>Action</th> <!-- Dodaj nową kolumnę dla przycisku Remove -->
+        </tr>
+      </thead>
+      <tbody>
+        <% events.forEach(event => { %>
+          <tr>
+            <td><%= event.eventName %></td>
+            <td><%= event.eventDate %></td>
+            <td><%= event.eventTime %></td>
+            <td>
+              <button onclick="removeEvent('<%= event._id %>')">Remove</button>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
   </div>
+  
   <div class="done-section">
     <ul id="doneList">
       <!-- Tutaj będą wyświetlane zakończone zadania -->
@@ -36,27 +56,51 @@
   <script type="text/javascript" src="../src/app.js"></script>
   <script type="text/javascript">
     async function submitEvent() {
-        const eventName = document.getElementById('eventName').value;
-        const eventDate = document.getElementById('eventDate').value;
-        const eventTime = document.getElementById('eventTime').value;
+    const eventName = document.getElementById('eventName').value;
+    const eventDate = document.getElementById('eventDate').value;
+    const eventTime = document.getElementById('eventTime').value;
 
-        // Sprawdź, czy wszystkie pola są uzupełnione przed wysłaniem żądania
-        if (!eventName || !eventDate || !eventTime) {
-            console.error('All fields must be filled out');
-            return;
+    // Sprawdź, czy wartości są stringami
+    if (typeof eventName !== 'string' || typeof eventDate !== 'string' || typeof eventTime !== 'string') {
+        console.error('Invalid input values');
+        return;
+    }
+
+    // Sprawdź, czy wszystkie pola są uzupełnione przed wysłaniem żądania
+    if (!eventName || !eventDate || !eventTime) {
+        console.error('All fields must be filled out');
+        return;
+    }
+
+    try {
+        const response = await fetch('/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ eventName, eventDate, eventTime }),
+        });
+
+        if (response.ok) {
+            console.log('Event created');
+            location.reload(); // Automatyczne odświeżenie strony
+        } else {
+            console.log('Failed to create event');
         }
+    } catch (error) {
+        console.error(error);
+    }
+}
 
+    async function removeEvent(eventId) {
         try {
-            const response = await fetch('/events', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ eventName, eventDate, eventTime }),
+            const response = await fetch(`/events/${eventId}`, {
+                method: 'DELETE',
             });
 
             if (response.ok) {
-                console.log('Event created');
+                console.log('Event removed');
+                location.reload(); // Automatyczne odświeżenie strony
             } else {
-                console.log('Failed to create event');
+                console.log('Failed to remove event');
             }
         } catch (error) {
             console.error(error);

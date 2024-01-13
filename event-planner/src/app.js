@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const eventRoutes = require('./routes/eventRoutes');
 const filePath = 'C:\\Users\\jedzi\\Desktop\\JS-zaliczenie\\event-planner\\views\\index.ejs';
 const eventController = require('./controllers/eventController');
+const Event = require('../src/models/Event');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,10 +28,34 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.post('/events', eventController.createEvent);
 
 // Obsługa ścieżki głównej
-app.get('/', (req, res) => {
-  res.render('index', { eventName: '', eventDate: '', eventTime: '' }); // Dodaj puste wartości na początku
+app.get('/', async (req, res) => {
+  try {
+    const events = await Event.find({});
+    res.render('index', { events, eventName: '', eventDate: '', eventTime: '' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to retrieve events' });
+  }
 });
 
+async function removeEvent(eventId) {
+  try {
+    const response = await fetch(`/events/${eventId}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      console.log('Event removed');
+      // Dodaj kod do odświeżenia widoku lub usuwania wiersza z tabeli
+    } else {
+      console.log('Failed to remove event');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+app.delete('/events/:id', eventController.deleteEvent);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
