@@ -1,27 +1,31 @@
 const Event = require('../models/Event');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-exports.getAllEvents = async (req, res) => {
-  try {
-    const events = await Event.find();
-    res.json(events);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// Create event
+const newEvent = new Event({
+  eventName: 'Zaliczenie',
+  eventDate: '23.01.2024',
+  eventDescription: 'Matma w sali 303 na godz. 10:30'
+});
 
-exports.createEvent = async (req, res) => {
-  const event = new Event({
-    date: req.body.date,
-    location: req.body.location,
-    description: req.body.description,
-  });
+newEvent.save()
+  .then(() => console.log('Event created'))
+  .catch((err) => console.log(err));
 
-  try {
-    const newEvent = await event.save();
-    res.status(201).json(newEvent);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
+// Read all events
+Event.find()
+  .then((events) => console.log(events))
+  .catch((err) => console.log(err));
 
-// Dodaj pozostałe funkcje: getEvent, updateEvent, deleteEvent
+// Update event
+Event.findOneAndUpdate({ eventName: 'Zaliczenie' }, { eventName: 'Poprawa' })
+  .then(() => console.log('Event updated'))
+  .catch((err) => console.log(err));
+
+// Delete event
+Event.deleteOne({ eventName: 'Poprawa' })
+  .then(() => console.log('Event deleted'))
+  .catch((err) => console.log(err));
+
+module.exports = Event;
