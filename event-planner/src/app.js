@@ -37,7 +37,13 @@ app.use('/events', eventRoutes);
 
 // Obsługa ścieżki głównej
 app.get('/', (req, res) => {
-  res.sendFile(filePath);
+  readHTMLFile(filePath, (err, html) => {
+    if (err) {
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.send(html);
+    }
+  });
 });
 
 app.listen(PORT, () => {
