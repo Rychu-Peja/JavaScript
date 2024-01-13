@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>Day Planner</title>
-	<link rel="stylesheet" type="text/css" href="/styles.css">
-	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day Planner</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
 </head>
+
 <body>
-<h2>Plan your day</h2>
-<div class = "container">
-	<input type="text" placeholder = "Enter task" id = "userinput"> 
-	<button value = "Enter" id= "enterButton"><strong>Enter</strong></button>
-</div>
-<div class = "todolist">
-	<ol>
-		<!-- <li>heyy</li> -->
-	</ol>
-</div>
-<script type="text/javascript" src = "/app.js"></script>
+  <h2>Plan your day</h2>
+  <div class="container">
+    <div class="task-section">
+      <input type="text" placeholder="Enter task" id="userinput">
+      <div class="datetime-section">
+        <input type="date" id="taskDate" name="taskDate" required>
+        <input type="time" id="taskTime" name="taskTime" required>
+      </div>
+      <button value="Enter" id="enterButton"><strong>Enter</strong></button>
+    </div>
+  </div>
+  <div class="todolist">
+    <ol>
+      <!-- <li>heyy</li> -->
+    </ol>
+  </div>
+  <div class="done-section">
+    <ul id="doneList">
+      <!-- Tutaj będą wyświetlane zakończone zadania -->
+    </ul>
+  </div>
+  <script type="text/javascript" src="/app.js"></script>
 </body>
+
 </html>
