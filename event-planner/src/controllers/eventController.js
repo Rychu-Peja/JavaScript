@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 // Create event
 const newEvent = new Event({
-  eventName: 'Zaliczenie',
-  eventDate: '23.01.2024',
-  eventDescription: 'Matma w sali 303 na godz. 10:30'
+  eventName: 'Urodziny ',
+  eventDate: '15.02.2024',
+  eventTime: '17:20'
 });
 
 newEvent.save()
@@ -29,3 +29,18 @@ Event.deleteOne({ eventName: 'Poprawa' })
   .catch((err) => console.log(err));
 
 module.exports = Event;
+
+const Event = require('../models/Event');
+
+exports.createEvent = async (req, res) => {
+ const { eventName, eventDate, eventTime } = req.body;
+
+ try {
+    const event = new Event({ eventName, eventDate, eventTime });
+    await event.save();
+    res.send(event);
+ } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+ }
+};

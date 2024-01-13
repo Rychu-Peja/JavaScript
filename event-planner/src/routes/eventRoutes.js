@@ -5,10 +5,10 @@ const Event = require('../models/Event');
 
 //Create event
 router.post('/events', async (req, res) => {
-    const { eventName, eventDate, eventDescription } = req.body;
+    const { eventName, eventDate, eventTime } = req.body;
 
     try {
-        const event = new Event({ eventName, eventDate, eventDescription });
+        const event = new Event({ eventName, eventDate, eventTime });
         await event.save();
         res.send(event);
     }   catch (error) {
@@ -31,10 +31,10 @@ router.get('/events', async (req, res) => {
   // Update event
   router.put('/events/:id', async (req, res) => {
     const { id } = req.params;
-    const { eventName, eventDate, eventDescription } = req.body;
+    const { eventName, eventDate, eventTime } = req.body;
   
     try {
-      const event = await Event.findByIdAndUpdate(id, { eventName, eventDate, eventDescription }, { new: true });
+      const event = await Event.findByIdAndUpdate(id, { eventName, eventDate, eventTime }, { new: true });
       res.send(event);
     } catch (error) {
       console.error(error);
