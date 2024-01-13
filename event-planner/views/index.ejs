@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Planner</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+</head>
+<body>
+  <h2>Plan your event</h2>
+  <div class="container">
+    <form id="eventForm" action="/events" method="POST">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" value="<%= eventName %>" required>
+        
+        <label for="eventDate">Event Date:</label>
+        <input type="date" id="eventDate" name="eventDate" value="<%= eventDate %>" required>
+        
+        <label for="eventTime">Event Time:</label>
+        <input type="time" id="eventTime" name="eventTime" value="<%= eventTime %>" required>
+        
+        <button type="button" onclick="submitEvent()">Submit</button>
+    </form>
+  </div>
+  <div class="todolist">
+    <ol>
+      <!-- <li>heyy</li> -->
+    </ol>
+  </div>
+  <div class="done-section">
+    <ul id="doneList">
+      <!-- Tutaj będą wyświetlane zakończone zadania -->
+    </ul>
+  </div>
+  <script type="text/javascript" src="../src/app.js"></script>
+  <script type="text/javascript">
+    async function submitEvent() {
+        const eventName = document.getElementById('eventName').value;
+        const eventDate = document.getElementById('eventDate').value;
+        const eventTime = document.getElementById('eventTime').value;
+
+        // Sprawdź, czy wszystkie pola są uzupełnione przed wysłaniem żądania
+        if (!eventName || !eventDate || !eventTime) {
+            console.error('All fields must be filled out');
+            return;
+        }
+
+        try {
+            const response = await fetch('/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ eventName, eventDate, eventTime }),
+            });
+
+            if (response.ok) {
+                console.log('Event created');
+            } else {
+                console.log('Failed to create event');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+</script>
+</body>
+</html>
