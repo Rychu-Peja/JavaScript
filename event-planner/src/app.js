@@ -42,7 +42,6 @@ async function removeEvent(eventId) {
 
     if (response.ok) {
       console.log('Event removed');
-      // Dodaj kod do odświeżenia widoku lub usuwania wiersza z tabeli
     } else {
       console.log('Failed to remove event');
     }
