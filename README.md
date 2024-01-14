@@ -1,5 +1,5 @@
 **Developerzy:**  
-Nikodem Matlakiewicz
+Nikodem Matlakiewicz  
 Fryderyk Szmidt
   
 **Opis projektu:**  
@@ -7,9 +7,8 @@ Aplikacja do zapisywania nadchodzących wydarzeń.
 
 
 **Lista komend/działań wymaganych do uruchomienia projektu:**  
-  
-npm init -y
-npm install express mongoose body-parser ejs
+npm init -y  
+npm install express mongoose body-parser ejs  
 mongod
 
 **odpalenie strony (localhost:3000):**  
