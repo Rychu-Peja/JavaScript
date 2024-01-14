@@ -112,7 +112,7 @@ h2 {
 
 .todolist th,
 .todolist td {
-  padding: 10px; /* Added padding to th and td */
+  padding: 10px; 
 }
 
 .todolist th {
@@ -124,7 +124,7 @@ h2 {
 }
 
 .todolist tr {
-  margin-bottom: 10px; /* Added margin between table rows */
+  margin-bottom: 10px; 
 }
 
 .done-section {
@@ -159,13 +159,11 @@ h2 {
   outline: none;
 }
 
-/* Added margin for the table header columns */
 th {
   margin-right: 10px;
   margin-bottom: 10px;
 }
 
-/* Added margin for the table data cells */
 td {
   margin-right: 10px;
   margin-bottom: 10px;
