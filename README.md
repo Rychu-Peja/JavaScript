@@ -16,4 +16,5 @@ node src/app.js
   
 **Baza MongoDB:**  
 localhost:27017/event-planner
-  
+
+*Funkcja edit nie w pełni sprawna*
